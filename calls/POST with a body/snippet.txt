@@ -1,0 +1,11 @@
+<comment>
+    <![CDATA[Description: Performs a POST with a Body]]>
+</comment>
+<post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+    <postBody contentType="application/json">
+        <![CDATA[{
+  "user": "admin",
+  "password": "123"
+}]]>
+    </postBody>
+</post>
