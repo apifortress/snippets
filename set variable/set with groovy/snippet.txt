@@ -1,0 +1,15 @@
+<comment>
+      <![CDATA[Description: Uses Groovy for setting a variable required for performing a call]]>
+</comment>
+<set var="format" lang="java" object="[&apos;xml&apos;,&apos;json&apos;]"/>
+<set var="acceptHeader" lang="java">
+  <![CDATA[if (format == 'xml')
+     return "application/xml";
+else
+     return "application/json";]]>
+</set>
+<each expression="format">
+   <get url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+        <header name="Accept" value="${acceptHeader}"/>
+    </get>
+</each>

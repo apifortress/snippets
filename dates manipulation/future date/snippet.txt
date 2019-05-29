@@ -1,0 +1,4 @@
+<comment>
+      <![CDATA[Description: Uses some extensions of APIFortress language to generate a future date.]]>
+</comment>
+<set var="date" value="${D.format(D.plusDays(D.nowMillis(),35), &apos;yyyy-MM-dd&apos;,&apos;America/New_York&apos;)}"/>

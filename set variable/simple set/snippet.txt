@@ -1,0 +1,14 @@
+<comment>
+      <![CDATA[Description: Uses a set variable for setting up users that are allowed to call the endpoint]]>
+</comment>
+<set var="users" lang="java" object="[&apos;user1&apos;,&apos;user2&apos;,&apos;user3&apos;,&apos;user4&apos;]"/>
+<each expression="users">
+  <post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+    <postBody contentType="application/json">
+      <![CDATA[{
+        "user": "${_1}",
+        "password": "123"
+     }]]>
+    </postBody>
+  </post>
+</each>

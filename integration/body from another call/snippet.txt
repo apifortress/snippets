@@ -1,0 +1,12 @@
+<comment>
+      <![CDATA[Description: Performs a call to an endpoint and retrive an object for using it as body in the subsequent call]]>
+    </comment>
+    <get url="http://demoapi.apifortress.com:8888/api/product" params="[:]" var="listProducts" mode="json">
+    </get>
+    <each expression="listProducts.products">
+      <post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+        <postBody contentType="application/json">
+          <![CDATA[${_1.asJSON()}]]>
+        </postBody>
+      </post>
+    </each>

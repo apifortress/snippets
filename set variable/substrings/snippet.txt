@@ -1,0 +1,11 @@
+<comment>
+      <![CDATA[Description: Creates a substring]]>
+</comment>
+<set var="string1" value="thisIsMyString" lang="java"/>
+<comment>
+      <![CDATA[The substring is ${string1.take(6)}]]>
+</comment>
+<set var="string2" value="this is my string" lang="java"/>
+<comment>
+      <![CDATA[The substring is ${string2.take(7)}]]>
+</comment>
