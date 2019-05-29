@@ -1,0 +1,7 @@
+<comment>
+      <![CDATA[Description: It encodes into a base64 string the username and password required for making the call using the basic authentication]]>
+</comment>
+<set var="auth" lang="java" value="${WSCrypto.base64('encode','admin:admin')}"/>
+<get url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+     <header name="Authorization" value="Basic ${auth}"/>
+</get>
