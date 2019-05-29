@@ -1,0 +1,13 @@
+<comment>
+      <![CDATA[Description: Performs a call to an endpoint and retrives the payload then adds a field in the response for using it as body in the subsequent call]]>
+</comment>
+<get url="http://demoapi.apifortress.com:8888/api/product" params="[:]" var="listProducts" mode="json">
+</get>
+<set var="itemsAvailable" lang="java" object="listProducts.products.each { it -&gt; it.currency=&apos;$&apos;  }; return listProducts"/>
+<each expression="itemsAvailable.products">
+  <post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+    <postBody contentType="application/json">
+          <![CDATA[${_1.asJSON()}]]>
+    </postBody>
+   </post>
+</each>

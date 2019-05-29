@@ -1,0 +1,9 @@
+<comment>
+      <![CDATA[Description: Slices an array]]>
+</comment>
+<set var="myArray" lang="java" object="[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;]"/>
+<each expression="myArray[0..2]">
+    <comment>
+      <![CDATA[${_1}]]>
+    </comment>
+</each>

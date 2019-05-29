@@ -1,0 +1,8 @@
+<comment>
+      <![CDATA[Description: Verifies the metrics using the assertions]]>
+</comment>
+<get url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+</get>
+<assert-greater expression="payload_response.metrics.latency" value="10"/>
+<assert-greater expression="payload_response.metrics.fetch" value="10"/>
+<assert-greater expression="payload_response.metrics.overall" value="10"/>
