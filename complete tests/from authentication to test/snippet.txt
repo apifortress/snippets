@@ -1,0 +1,45 @@
+<comment>
+      <![CDATA[Description: A basic API test that tests integration between an authentication route and the cart route.]]>
+</comment>
+<post url="http://demoapi.apifortress.com/api/retail/user" params="[:]" var="userPayload" mode="json">
+      <header name="key" value="ABC123"/>
+      <postBody contentType="application/json">
+        <![CDATA[
+        {
+        "user":"User1",
+        "password":1234
+        }
+       ]]>
+      </postBody>
+</post>
+<comment>
+      <![CDATA[Saves the access_token from the response payload in a variable]]>
+</comment>
+<set var="access_token" value="${userPayload.Token}" lang="java"/>
+<put url="http://demoapi.apifortress.com/api/retail/cart" params="[:]" var="payload" mode="json">
+      <header name="key" value="ABC123"/>
+      <header name="usertoken" value="${access_token}"/>
+      <putBody contentType="application/json">
+        <![CDATA[
+        {
+        	"1": 1,
+        	"2": 2,
+        	"3": 3,
+        	"9": 3,
+        	"8": 1
+       }
+       ]]>
+      </putBody>
+    </put>
+<get url="http://demoapi.apifortress.com/api/retail/cart" params="[:]" var="cartPayload" mode="json">
+      <header name="key" value="ABC123"/>
+      <header name="usertoken" value="${access_token}"/>
+</get>
+<comment>
+      <![CDATA[cart is: ${cartPayload}]]>
+</comment>
+<each expression="cartPayload">
+      <assert-is expression="_1.id" type="integer" mode="all" comment="id item is an integer value"/>
+      <assert-exists expression="_1.item"  mode="all" comment="item exists"/>
+      <assert-is expression="_1.quantity" type="integer" mode="all" comment="quantitiy item is an integer value"/>
+</each>

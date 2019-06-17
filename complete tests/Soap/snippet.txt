@@ -1,0 +1,14 @@
+<comment>
+      <![CDATA[Description: Performs a call to a SOAP endpoint and adds some common assertions to check the payload]]>
+</comment>
+<get url="http://demoapi.apifortress.com/api/soap" params="[:]" var="payload" mode="xml2">
+      <header name="key" value="ABC123"/>
+      <header name="Accept" value="application/xml"/>
+</get>
+<assert-equals expression="payload_response.statusCode" value="200" comment="statusCode is 200"/>
+<assert-equals expression="payload_response.headers[&apos;Content-Type&apos;]" value="application/xml; charset=utf-8" comment="Content-Type is the expected one"/>
+<assert-exists expression="payload"  mode="all" comment="payload exists"/>
+<assert-exists expression="payload.Body"  mode="all" comment="Body exists"/>
+<assert-exists expression="payload.Body.GetPriceResponse"  mode="all" comment="Body.GetPriceResponse exists"/>
+<assert-exists expression="payload.Body.GetPriceResponse.Price"  mode="all" comment="Body.GetPriceResponse.Price exists"/>
+<assert-is expression="payload.Body.GetPriceResponse.Price" type="float" mode="all" comment="Body.GetPriceResponse.Price is a decimal number"/>

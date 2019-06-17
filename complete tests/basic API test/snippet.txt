@@ -1,0 +1,24 @@
+<comment>
+      <![CDATA[Description: Performs a call and adds some common assertions to check the payload]]>
+</comment>
+<get url="http://demoapi.apifortress.com/api/retail/product" params="[:]" var="payload" mode="json">
+      <header name="key" value="ABC123"/>
+</get>
+<assert-equals expression="payload_response.statusCode" value="200" comment="statusCode is equals to 200"/>
+<assert-equals expression="payload_response.headers[&apos;Content-Type&apos;]" value="application/json; charset=utf-8" comment="Content-Type is the expected one"/>
+<assert-is expression="payload" type="array" comment="payload is an array"/>
+<comment>
+<![CDATA[iterates on each item in the payload picking up just one in every iteration]]
+</comment>
+<each expression="payload.pick(1)" >
+      <assert-exists expression="_1.category"  mode="all" comment="category item must exists"/>
+      <assert-is expression="_1.color" type="array" mode="all" comment="color item is an array"/>
+      <assert-exists expression="_1.createdAt"  mode="all" comment="createdAt item must exists"/>
+      <assert-exists expression="_1.description"  mode="all" comment="description item must exists"/>
+      <assert-is expression="_1.id" type="integer" mode="all" comment="id item is an integer value"/>
+      <assert-is expression="_1.imageURL" type="url" mode="all" comment="imageURL item is a valid url"/>
+      <assert-exists expression="_1.name"  mode="all" comment="name item must exists"/>
+      <assert-is expression="_1.price" type="float" mode="all" comment="price item is a decimal value"/>
+      <assert-is expression="_1.quantity" type="integer" mode="all" comment="quantity item is an integer value"/>
+      <assert-exists expression="_1.updatedAt"  mode="all" comment="updatedAt item must exists"/>
+</each>
