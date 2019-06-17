@@ -1,0 +1,24 @@
+<comment>
+    <![CDATA[Description: Uses the if component to stop the flow when an invalid id is present]]>
+</comment>
+<comment>
+    <![CDATA[Creates an array with some values]]>
+</comment>
+<set var="someIds" lang="java" object="[1,2,3,15,45]"/>
+<comment>
+      <![CDATA[Iterates through all the values in the array to use each for calling the product API]]>
+</comment>
+<each expression="someIds">
+  <comment>
+    <![CDATA[id is: ${_1}]]>
+  </comment>
+  <get url="http://demoapi.apifortress.com/api/retail/product/${_1}" params="[:]" var="payload" mode="text" expect="200|404|VALID">
+    <header name="key" value="ABC123"/>
+  </get>
+  <if expression="payload_response.statusCode==&apos;404&apos;">
+  <comment>
+    <![CDATA[product does not exists anymore]]>
+  </comment>
+  <flow command="stop"/>
+  </if>
+</each>
