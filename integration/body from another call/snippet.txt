@@ -1,12 +1,19 @@
 <comment>
-      <![CDATA[Description: Performs a call to an endpoint and retrive an object for using it as body in the subsequent call]]>
-    </comment>
-    <get url="http://demoapi.apifortress.com:8888/api/product" params="[:]" var="listProducts" mode="json">
-    </get>
-    <each expression="listProducts.products">
-      <post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
-        <postBody contentType="application/json">
-          <![CDATA[${_1.asJSON()}]]>
-        </postBody>
-      </post>
-    </each>
+  <![CDATA[Description: Performs a call to an endpoint and retrive an object for using it as body in the subsequent call]]>
+</comment>
+<get url="http://demoapi.apifortress.com/api/retail/product" params="[:]" var="listProducts" mode="json">
+  <header name="key" value="ABC123"/>
+</get>
+<comment>
+  <![CDATA[]iterates on each item in the response payload]>
+</comment>
+<each expression="listProducts">
+<comment>
+<![CDATA[the POST Body is created from each item retrived in the previous call passed in JSON format using asJSON() method ]]>
+</comment>
+  <post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+    <postBody contentType="application/json">
+      <![CDATA[${_1.asJSON()}]]>
+    </postBody>
+  </post>
+</each>

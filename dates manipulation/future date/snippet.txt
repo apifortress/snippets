@@ -1,4 +1,25 @@
 <comment>
-      <![CDATA[Description: Uses some extensions of APIFortress language to generate a future date.]]>
+  <![CDATA[Description: Uses some extensions of APIFortress language to generate a future date.]]>
 </comment>
-<set var="date" value="${D.format(D.plusDays(D.nowMillis(),35), &apos;yyyy-MM-dd&apos;,&apos;America/New_York&apos;)}"/>
+<comment>
+  <![CDATA[First, we need to retrieve the current Unix epoch in milliseconds.]]>
+</comment>
+<comment>
+  <![CDATA[${D.nowMillis()}]]>
+</comment>
+<comment>
+  <![CDATA[Second, we add to the current Unix epoch 35 days]]>
+</comment>
+<comment>
+  <![CDATA[${D.plusDays(D.nowMillis(),35)}]]>
+</comment>
+<comment>
+  <![CDATA[Lastly, we create a timestamp with the given format, based on the provided timezone id]]>
+</comment>
+<comment>
+  <![CDATA[${D.format(D.plusDays(D.nowMillis(),35), 'yyyy-MM-dd','America/New_York')}]]>
+</comment>
+<comment>
+  <![CDATA[The set variable will be then as the following:]]>
+</comment>
+<set var="date" value="${D.format(D.plusDays(D.nowMillis(),35), &apos;yyyy-MM-dd&apos;,&apos;America/New_York&apos;)}" lang="java"/>

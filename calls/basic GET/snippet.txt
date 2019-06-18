@@ -1,0 +1,10 @@
+<comment>
+  <![CDATA[Description: Performs a GET using variables in the URL.]]>
+</comment>
+<set var="protocol" value="http://"/>
+<set var="domain" value="demoapi.apifortress.com"/>
+<set var="endpoint" value="/api/retail/product"/>
+<set var="key" value="ABC123"/>
+<get url="${protocol}${domain}${endpoint}" params="[:]" var="listProducts" mode="json">
+  <header name="key" value="${key}"/>
+</get>

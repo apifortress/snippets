@@ -1,14 +1,17 @@
 <comment>
-  <![CDATA[Description: Performs a call to an endpoint and retrives the payload then adds a field in the response for using it as body in the subsequent call]]>
+  <![CDATA[Description: Uses information from a response payload to retrive data to be used in a POST Body]]>
 </comment>
 <get url="http://demoapi.apifortress.com/api/retail/product" params="[:]" var="listProducts" mode="json">
   <header name="key" value="ABC123"/>
 </get>
-<set var="itemsAvailable" lang="java" object="listProducts.each { it -&gt; it.currency=&apos;$&apos;  }; return listProducts"/>
-<each expression="itemsAvailable">
+<each expression="listProducts.id">
+  <set var="qty" lang="java" object="[2,4,5,7,9,11].pick()"/>
   <post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
     <postBody contentType="application/json">
-      <![CDATA[${_1.asJSON()}]]>
+      <![CDATA[{
+"id": ${listProducts.id.pick()},
+"quantity": ${qty}
+}]]>
     </postBody>
   </post>
 </each>
