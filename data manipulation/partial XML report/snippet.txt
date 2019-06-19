@@ -1,0 +1,15 @@
+<comment>
+  <![CDATA[Description: Uses asXML() function to pass a body in XML format.]]>
+</comment>
+<get url="http://demoapi.apifortress.com/api/soap" params="[:]" var="payload1" mode="xml2">
+  <header name="key" value="ABC123"/>
+  <header name="Accept" value="application/xml"/>
+</get>
+<post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload2" mode="json">
+  <postBody contentType="application/json">
+    <![CDATA[${payload1.asXML()}]]>
+  </postBody>
+</post>
+<comment>
+  <![CDATA[Body is: ${payload1.asXML()}]]>
+</comment>

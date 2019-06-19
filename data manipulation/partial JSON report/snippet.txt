@@ -1,0 +1,19 @@
+<comment>
+  <![CDATA[Description: Uses asJSON() function to pass a body in JSON format.]]>
+</comment>
+<get url="http://demoapi.apifortress.com/api/retail/product" params="[:]" var="listProducts" mode="json">
+  <header name="key" value="ABC123"/>
+</get>
+<each expression="listProducts">
+  <comment>
+    <![CDATA[the POST Body is created from each item retrived in the previous call passed in JSON format using asJSON() method]]>
+  </comment>
+  <post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+    <postBody contentType="application/json">
+      <![CDATA[${_1.asJSON()}]]>
+    </postBody>
+  </post>
+  <comment>
+    <![CDATA[Body is: ${_1.asJSON()}]]>
+  </comment>
+</each>

@@ -1,0 +1,57 @@
+<comment>
+      <![CDATA[Description: HMAC authentication]]>
+</comment>
+<set var="HMAC_APP_ID" value="your key" lang="java"/>
+<set var="HMAC_SECRET" value="your secret" lang="java"/>
+<set var="AUTH_SCHEME" value="axs" lang="java"/>
+<set var="REQUEST_URI" value="/customer/api/guest" lang="java"/>
+<set var="HTTP_REQUEST_METHOD" value="POST" lang="java"/>
+<set var="requestBody" lang="java" object="null"/>
+<set var="signature" lang="java">
+  <![CDATA[import org.apache.commons.codec.binary.Base64
+   import org.apache.commons.codec.digest.DigestUtils
+   import javax.crypto.Mac
+   import javax.crypto.spec.SecretKeySpec
+
+   long epoch = getEpoch()
+   String nonce = UUID.randomUUID().toString()
+   def sigHash = getSignature(HMAC_APP_ID, HTTP_REQUEST_METHOD, requestBody, REQUEST_URI, nonce, epoch)
+   def header = "${AUTH_SCHEME} ${HMAC_APP_ID}:${sigHash}:${nonce}:${epoch}"
+   return header
+
+
+   def getSignature(String applicationId, String requestMethod, String requestBody, String REQUEST_URI, String nonce, long epoch) {
+
+    //Create an MD5 hash of the request body
+    String requestContentBase64String = "";
+    if (requestBody) {
+        byte[] hashRequestBody = DigestUtils.md5(requestBody);
+        if (hashRequestBody != null) {
+            requestContentBase64String = Base64.encodeBase64String(hashRequestBody);
+        }
+    }
+    def key = Base64.decodeBase64(HMAC_SECRET)
+    // Convert the apiKey from Base64
+
+    // Create the raw signature string
+    def signatureRaw = applicationId + requestMethod + REQUEST_URI + epoch + nonce + requestContentBase64String;
+
+    // Create the HMAC signature hash
+    return hmacSha256(signatureRaw, key);
+   }
+
+  def hmacSha256(def signatureRaw, def key){
+    Mac digest = Mac.getInstance("HmacSHA256");
+    SecretKeySpec secretKeySpec = new SecretKeySpec(key, "HmacSHA256");
+    digest.init(secretKeySpec);
+    byte[] data = digest.doFinal(signatureRaw.getBytes());
+    return Base64.encodeBase64String(data)
+  }
+
+  def getEpoch(){
+    return Math.round(System.currentTimeMillis()/1000)
+  }]]>
+</set>
+<comment>
+  <![CDATA[${signature}]]>
+</comment>

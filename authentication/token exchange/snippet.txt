@@ -1,0 +1,22 @@
+<comment>
+    <![CDATA[Description: A basic API test that performs the authentication call to retrieve access token required for the following call.]]>
+</comment>
+<post url="http://demoapi.apifortress.com/api/retail/user" params="[:]" var="userAuthentication" mode="json">
+    <header name="key" value="ABC123"/>
+    <postBody contentType="application/json">
+      <![CDATA[
+      {
+      "user":"User1",
+      "password":1234
+      }
+     ]]>
+    </postBody>
+</post>
+<comment>
+    <![CDATA[Saves the access_token from the response payload in a variable]]>
+</comment>
+<set var="access_token" value="${userAuthentication.Token}" lang="java"/>
+<get url="http://demoapi.apifortress.com/api/retail/cart" params="[:]" var="cartPayload" mode="json">
+    <header name="key" value="ABC123"/>
+    <header name="usertoken" value="${access_token}"/>
+</get>
