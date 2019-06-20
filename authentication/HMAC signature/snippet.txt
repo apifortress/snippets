@@ -1,10 +1,10 @@
 <comment>
-      <![CDATA[Description: HMAC authentication]]>
+      <![CDATA[Description: HMAC signature]]>
 </comment>
 <set var="HMAC_APP_ID" value="your key" lang="java"/>
 <set var="HMAC_SECRET" value="your secret" lang="java"/>
 <set var="AUTH_SCHEME" value="axs" lang="java"/>
-<set var="REQUEST_URI" value="/customer/api/guest" lang="java"/>
+<set var="REQUEST_URI" value="your uri" lang="java"/>
 <set var="HTTP_REQUEST_METHOD" value="POST" lang="java"/>
 <set var="requestBody" lang="java" object="null"/>
 <set var="signature" lang="java">
