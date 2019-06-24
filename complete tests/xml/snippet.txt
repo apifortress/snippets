@@ -1,0 +1,51 @@
+<comment>
+  <![CDATA[Description: Performs a call to a SOAP endpoint and adds some common assertions to check the payload]]>
+</comment>
+<get url="http://demoapi.apifortress.com/api/xml" params="[:]" var="payload" mode="xml2">
+</get>
+<assert-equals expression="payload_response.statusCode" value="200"/>
+<assert-exists expression="payload"  mode="all"/>
+<assert-exists expression="payload.id"  mode="all"/>
+<assert-exists expression="payload.title"  mode="all"/>
+<assert-exists expression="payload.title[&apos;@type&apos;]"  mode="all"/>
+<assert-exists expression="payload.updated"  mode="all"/>
+<assert-exists expression="payload.author"  mode="all"/>
+<assert-exists expression="payload.author.name"  mode="all"/>
+<assert-exists expression="payload.link"  mode="all"/>
+<assert-exists expression="payload.link[&apos;@rel&apos;]"  mode="all"/>
+<assert-exists expression="payload.link[&apos;@href&apos;]"  mode="all"/>
+<assert-exists expression="payload.link[&apos;@title&apos;]"  mode="all"/>
+<each expression="payload.entry">
+  <assert-exists expression="_1"  mode="all"/>
+  <assert-exists expression="_1.id"  mode="all"/>
+  <assert-exists expression="_1.title"  mode="all"/>
+  <assert-exists expression="_1.title[&apos;@type&apos;]"  mode="all"/>
+  <assert-exists expression="_1.updated"  mode="all"/>
+  <assert-exists expression="_1.category"  mode="all"/>
+  <assert-exists expression="_1.category[&apos;@scheme&apos;]"  mode="all"/>
+  <assert-exists expression="_1.category[&apos;@term&apos;]"  mode="all"/>
+  <assert-exists expression="_1.content"  mode="all"/>
+  <assert-exists expression="_1.content[&apos;@type&apos;]"  mode="all"/>
+  <assert-exists expression="_1.content.properties"  mode="all"/>
+  <assert-exists expression="_1.content.properties.ProductID"  mode="all"/>
+  <assert-exists expression="_1.content.properties.TypeCode"  mode="all"/>
+  <assert-exists expression="_1.content.properties.Category"  mode="all"/>
+  <assert-exists expression="_1.content.properties.Name"  mode="all"/>
+  <assert-exists expression="_1.content.properties.NameLanguage"  mode="all"/>
+  <assert-exists expression="_1.content.properties.Description"  mode="all"/>
+  <assert-exists expression="_1.content.properties.DescriptionLanguage"  mode="all"/>
+  <assert-exists expression="_1.content.properties.SupplierID"  mode="all"/>
+  <assert-exists expression="_1.content.properties.SupplierName"  mode="all"/>
+  <assert-exists expression="_1.content.properties.TaxTarifCode"  mode="all"/>
+  <assert-exists expression="_1.content.properties.MeasureUnit"  mode="all"/>
+  <assert-exists expression="_1.content.properties.WeightMeasure"  mode="all"/>
+  <assert-exists expression="_1.content.properties.WeightUnit"  mode="all"/>
+  <assert-exists expression="_1.content.properties.CurrencyCode"  mode="all"/>
+  <assert-exists expression="_1.content.properties.Price"  mode="all"/>
+  <assert-exists expression="_1.content.properties.Width"  mode="all"/>
+  <assert-exists expression="_1.content.properties.Depth"  mode="all"/>
+  <assert-exists expression="_1.content.properties.Height"  mode="all"/>
+  <assert-exists expression="_1.content.properties.DimUnit"  mode="all"/>
+  <assert-exists expression="_1.content.properties.CreatedAt"  mode="all"/>
+  <assert-exists expression="_1.content.properties.ChangedAt"  mode="all"/>
+</each>

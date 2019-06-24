@@ -1,0 +1,15 @@
+<comment>
+  <![CDATA[Description: Converts the provided timestamp in milliseconds and then in a new format.]]>
+</comment>
+<set var="date" value="2019-04-19" lang="java"/>
+<set var="millis" object="D.parse(date)" lang="java"/>
+<comment>
+  <![CDATA[${millis}]]>
+</comment>
+<comment>
+  <![CDATA[Creates a timestamp with the given format]]>
+</comment>
+<set var="newFormat" object="D.format(millis,'MM/dd/YY')"/>
+<comment>
+  <![CDATA[${newFormat}]]>
+</comment>

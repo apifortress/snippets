@@ -1,12 +1,12 @@
 <comment>
-    <![CDATA[Description: Uses the if component to stop the flow when an invalid id is present]]>
+  <![CDATA[Description: Uses the if component to stop the flow when an invalid id is present]]>
 </comment>
 <comment>
-    <![CDATA[Creates an array with some values]]>
+  <![CDATA[Creates an array with some values]]>
 </comment>
 <set var="someIds" lang="java" object="[1,2,3,15,45]"/>
 <comment>
-      <![CDATA[Iterates through all the values in the array to use each for calling the product API]]>
+    <![CDATA[Iterates through all the values in the array to use each for calling the product API]]>
 </comment>
 <each expression="someIds">
   <comment>
@@ -16,9 +16,9 @@
     <header name="key" value="ABC123"/>
   </get>
   <if expression="payload_response.statusCode==&apos;404&apos;">
-  <comment>
-    <![CDATA[product does not exists anymore]]>
-  </comment>
-  <flow command="stop"/>
+    <comment>
+      <![CDATA[product does not exists anymore]]>
+    </comment>
+    <flow command="stop"/>
   </if>
 </each>

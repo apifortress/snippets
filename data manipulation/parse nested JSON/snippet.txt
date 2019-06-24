@@ -1,0 +1,24 @@
+<comment>
+  <![CDATA[Description: Tests a parsed JSON nested in a JSON response payload. ]]>
+</comment>
+<get url="http://demoapi.apifortress.com /api/tricks/nested" params="[:]" var="payload" mode="json">
+</get>
+<assert-equals expression="payload_response.statusCode" value="200"/>
+<assert-exists expression="payload"/>
+<assert-is expression="payload.color" type="array"/>
+<assert-is expression="payload.id" type="integer"/>
+<assert-exists expression="payload.name" />
+<assert-is expression="payload.price" type="float" />
+<assert-is expression="payload.quantity" type="integer" />
+<assert-exists expression="payload.similarItem"/>
+<set var="innerJson" value="${payload.similarItem}"/>
+<comment>
+  <![CDATA[${innerJson}]]>
+</comment>
+<parse var="innerJson" adapter="json"/>
+<assert-exists expression="innerJson.id"  mode="all"/>
+<assert-contains expression="innerJson.id" value="${payload.id}" mode="all"/>
+<assert-exists expression="innerJson.name"  mode="all"/>
+<assert-is expression="innerJson.price" type="float" mode="all"/>
+<assert-is expression="innerJson.quantity" type="integer" mode="all"/>
+<assert-is expression="innerJson.color" type="array" mode="all"/>

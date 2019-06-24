@@ -1,0 +1,20 @@
+<comment>
+<![CDATA[Description: Brief example how assert-compares works.]]>
+</comment>
+<get url="http://demoapi.apifortress.com/api/compares/payload1" params="[:]" var="payload1" mode="json">
+</get>
+<get url="http://demoapi.apifortress.com/api/compares/payload2" params="[:]" var="payload2" mode="json">
+</get>
+<assert-compares expression1="payload1" expression2="payload2" mode="text" comment="fails because the two payloads have different texts"/>
+<assert-compares expression1="payload1" expression2="payload2" mode="structure" comment="success because the structure of the two payloads is similar"/>
+<assert-compares expression1="payload1" expression2="payload2" mode="values" comment="fails because the values of the two payloads are different"/>
+<assert-compares expression1="payload1.content" expression2="payload2.content" mode="structure" comment="success because the structure of the two payloads is similar"/>
+<assert-compares expression1="payload1.content.variants" expression2="payload2.content.variants" mode="text" comment="success because variants array contains strings for both payloads"/>
+<assert-compares expression1="payload1.content.variants" expression2="payload2.content.variants" mode="structure" comment="success because variants is an array for both payloads"/>
+<assert-compares expression1="payload1.content.variants" expression2="payload2.content.variants" mode="values" comment="fails because variants array contains different strings in the two payloads"/>
+<assert-compares expression1="payload1.content.variants" expression2="payload1.content.variants" mode="values" comment="success because same item is compared"/>
+<assert-compares expression1="payload1.content.options" expression2="payload2.content.variants" mode="structure" comment="fails because an object and an array are compared"/>
+<assert-compares expression1="payload1.content.availability" expression2="payload2.content.availability" mode="values" comment="success because the two object have the same values"/>
+<assert-compares expression1="payload1.content.availability" expression2="payload2.content.availability" mode="structure" comment="success because both are objects with same fields"/>
+<assert-compares expression1="payload1.content.options" expression2="payload2.content.options" mode="structure" comment="fails because both are objects but with different fields"/>
+<assert-compares expression1="payload1.content.options" expression2="payload2.content.options" mode="values" comment="failure because the second payload contains one extra item"/>
