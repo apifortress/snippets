@@ -1,0 +1,4 @@
+<fake var="FirstName" value="firstName" count="1"/>
+    <comment>
+      <![CDATA[${FirstName}]]>
+    </comment>
