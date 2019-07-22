@@ -1,0 +1,10 @@
+<post url="https://mastiff.apifortress.com/app/api/rest/relay" params="[:]" var="payload" mode="json">
+      <postBody contentType="application/json">
+        <![CDATA[{
+"name": "${F.firstName()}",
+"lastName":"${F.lastName()}",
+"city": "${F.city()}",
+"profession": "${F.profession()}"
+}]]>
+      </postBody>
+    </post>

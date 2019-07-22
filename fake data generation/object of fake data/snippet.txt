@@ -1,0 +1,4 @@
+<fake var="object" object="['first':'firstName','last':'lastName','zip':'zipCode']" count="1"/>
+    <comment>
+      <![CDATA[${object}]]>
+    </comment>

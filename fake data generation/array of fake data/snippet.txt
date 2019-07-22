@@ -1,0 +1,4 @@
+<fake var="data" array="['fullName','fullAddress']" count="1"/>
+    <comment>
+      <![CDATA[${data}]]>
+    </comment>
