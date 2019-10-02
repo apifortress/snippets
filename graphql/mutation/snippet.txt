@@ -1,0 +1,27 @@
+<comment>
+      <![CDATA[Performs a mutation to a GraphQL endpoint, then queries the endpoint to validate the change]]>
+    </comment>
+    <post url="https://graphserverlet.herokuapp.com/graphql" params="[:]" var="payloadupdate" mode="json">
+      <postBody contentType="application/json" gen="rag">
+        <![CDATA[{
+  "query": "mutation ($id: Int!, $topic: String!) { updateCourseTopic(id: $id, topic: $topic) {  title, topic }}", 
+  "variables": { "id": 1, "topic" : "Ruby"} 
+}]]>
+      </postBody>
+    </post>
+    <assert-equals expression="payloadupdate_response.statusCode" value="200"/>
+    <assert-equals expression="payloadupdate_response.headers[&apos;Content-Type&apos;]" value="application/json; charset=utf-8"/>
+    <assert-exists expression="payloadupdate" />
+    <assert-exists expression="payloadupdate.data" />
+    <assert-exists expression="payloadupdate.data.updateCourseTopic" />
+    <assert-exists expression="payloadupdate.data.updateCourseTopic.title" />
+    <assert-exists expression="payloadupdate.data.updateCourseTopic.topic"  comment="${payload.data.updateCourseTopic.topic}"/>
+    <post url="https://graphserverlet.herokuapp.com/graphql" params="[:]" var="payloadcheck" mode="json">
+      <postBody contentType="application/json">
+        <![CDATA[{
+  "query": "query ($id: Int!) { course(id: $id) {  title, author, description, topic, url }}", 
+  "variables": { "id": 1} 
+}]]>
+      </postBody>
+    </post>
+    <assert-equals expression="payloadcheck.data.course.topic" value="Ruby" comment="Topic updated matches"/>

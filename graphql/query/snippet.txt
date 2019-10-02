@@ -1,0 +1,21 @@
+<comment>
+      <![CDATA[Performs a query to a GraphQL endpoint]]>
+    </comment>
+    <post url="https://graphserverlet.herokuapp.com/graphql" params="[:]" var="payload" mode="json">
+      <postBody contentType="application/json">
+        <![CDATA[{
+  "query": "query ($id: Int!) { course(id: $id) {  title, author, description, topic, url }}", 
+  "variables": { "id": 1} 
+}]]>
+      </postBody>
+    </post>
+    <assert-equals expression="payload_response.statusCode" value="200"/>
+    <assert-equals expression="payload_response.headers[&apos;Content-Type&apos;]" value="application/json; charset=utf-8"/>
+    <assert-exists expression="payload"  gen="jag"/>
+    <assert-exists expression="payload.data"  gen="jag"/>
+    <assert-exists expression="payload.data.course"  gen="jag"/>
+    <assert-exists expression="payload.data.course.author"  gen="jag"/>
+    <assert-exists expression="payload.data.course.description"  gen="jag"/>
+    <assert-exists expression="payload.data.course.title"  gen="jag"/>
+    <assert-exists expression="payload.data.course.topic"  gen="jag"/>
+    <assert-is expression="payload.data.course.url" type="url" gen="jag"/>
