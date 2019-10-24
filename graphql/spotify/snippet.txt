@@ -1,0 +1,24 @@
+<comment>
+      <![CDATA[Example of GraphQL query for Spotify]]>
+    </comment>
+    <post url="${protocol}${domain}${endpoint}" params="[:]" var="payload" mode="json" gen="rag">
+      <postBody contentType="application/json" gen="rag">
+        <![CDATA[{
+"query": "query getByArtist ($name: String!) { queryArtists (byName: $name) { name, image, albums { name }}}",
+"variables": { "name": "eminem" }
+}]]>
+      </postBody>
+    </post>
+    <assert-equals expression="payload_response.statusCode" value="200"/>
+    <assert-equals expression="payload_response.headers[&apos;Content-Type&apos;]" value="application/json; charset=utf-8"/>
+    <assert-exists expression="payload"  gen="jag"/>
+    <assert-exists expression="payload.data"  gen="jag"/>
+    <assert-is expression="payload.data.queryArtists" type="array" gen="jag"/>
+    <each expression="payload.data.queryArtists.pick(5)" gen="jag">
+      <assert-is expression="_1.albums" type="array" gen="jag"/>
+      <each expression="_1.albums.pick(5)" gen="jag">
+        <assert-exists expression="_2.name"  gen="jag"/>
+      </each>
+      <assert-is expression="_1.image" type="url" gen="jag"/>
+      <assert-exists expression="_1.name"  gen="jag"/>
+    </each>
