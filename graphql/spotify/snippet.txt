@@ -1,7 +1,7 @@
 <comment>
       <![CDATA[Example of GraphQL query for Spotify]]>
     </comment>
-    <post url="${protocol}${domain}${endpoint}" params="[:]" var="payload" mode="json" gen="rag">
+    <post url="https://spotify-graphql-server.herokuapp.com/graphql" params="[:]" var="payload" mode="json" gen="rag">
       <postBody contentType="application/json" gen="rag">
         <![CDATA[{
 "query": "query getByArtist ($name: String!) { queryArtists (byName: $name) { name, image, albums { name }}}",
