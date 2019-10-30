@@ -1,0 +1,14 @@
+<comment>
+    <![CDATA[Performs a JDBC connection and uses data from database to drive the test.]]>
+  </comment>
+  <jdbc url="jdbc:mysql://remotemysql.com:3306/bRWhxUYZ9b" driver="com.mysql.jdbc.Driver" username="bRWhxUYZ9b" password="LjfTcPTf65" var="payload">
+    <![CDATA[SELECT * FROM `products` WHERE 1]]>
+  </jdbc>
+  <each expression="payload">
+    <set var="id" value="${_1.id}" lang="java"/>
+    <get url="https://m3-sangtest.load2.apifortress.com/api/products/${id}" params="[:]" var="products" mode="json">
+    </get>
+    <assert-is expression="products.id" type="integer"/>
+    <assert-exists expression="products.name" />
+    <assert-is expression="products.price" type="float"/>
+  </each>
