@@ -1,0 +1,12 @@
+    <get url="https://m3-security.load2.apifortress.com/api/user/info" params="['name':'Albert Ecker']" var="payload" mode="json">
+    </get>
+    <if expression="payload.containsKey(&quot;SSN&quot;)">
+      <comment>
+        <![CDATA[WARNING - Payload contains Social Security Number]]>
+      </comment>
+    </if>
+    <if expression="payload.containsKey(&quot;Routing Number&quot;)">
+      <comment>
+        <![CDATA[WARNING - Payload contains bank information]]>
+      </comment>
+    </if>

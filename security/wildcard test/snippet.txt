@@ -1,0 +1,16 @@
+    <comment>
+      <![CDATA[If we call this API with an id number, we will get information on the user that id belongs to.]]>
+    </comment>
+    <get url="https://m3-security.load2.apifortress.com/api/users" params="['id':'522']" var="payload" mode="json">
+    </get>
+    <comment>
+      <![CDATA[${payload}]]>
+    </comment>
+    <comment>
+      <![CDATA[However, if we call the API with a wildcard (*) in place of the number for id, it will return all users information. This is a very dangerous functionality.]]>
+    </comment>
+    <get url="https://m3-security.load2.apifortress.com/api/users" params="['id':'*']" var="payload2" mode="json">
+    </get>
+    <comment>
+      <![CDATA[${payload2}]]>
+    </comment>

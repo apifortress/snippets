@@ -1,0 +1,9 @@
+    <comment>
+      <![CDATA[For the purpose of testing default/common logins, this test will "pass" if the login fails, and will "fail" if the login succeeds.]]>
+    </comment>
+    <set var="logins" lang="java" object="[&apos;admin:admin&apos;,&apos;root:root&apos;,&apos;tech:tech&apos;,&apos;root:letmein&apos;,&apos;root:!root&apos;]"/>
+    <each expression="logins">
+      <post url="https://m3-security.load2.apifortress.com/api/login" params="[:]" var="payload" mode="json" expect="401|VALID">
+        <postParam name="login" value="${_1}"/>
+      </post>
+    </each>

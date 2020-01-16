@@ -1,0 +1,10 @@
+    <comment>
+      <![CDATA[This test will generate 5 random username:password maps, and use those to try accessing the API]]>
+    </comment>
+    <set var="randomlistoflogins" lang="java" object="[&apos;${F.emailAddress()}:${F.password(5,15,true,true,true)}&apos;,&apos;${F.emailAddress()}:${F.password(5,15,true,true,true)}&apos;,&apos;${F.emailAddress()}:${F.password(5,15,true,true,true)}&apos;,&apos;${F.emailAddress()}:${F.password(5,15,true,true,true)}&apos;,&apos;${F.emailAddress()}:${F.password(5,15,true,true,true)}&apos;,&apos;${F.emailAddress()}:${F.password(5,15,true,true,true)}&apos;]"/>
+    <each expression="randomlistoflogins">
+      <set var="login" value="${_1}" lang="java"/>
+      <post url="https://m3-security.load2.apifortress.com/api/brute/login" params="[:]" var="payload" mode="json">
+        <postParam name="login" value="${login}"/>
+      </post>
+    </each>

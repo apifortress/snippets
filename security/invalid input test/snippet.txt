@@ -1,0 +1,8 @@
+    <get url="https://m3-security.load2.apifortress.com/api/invalid" params="['Authorization':'Basic 0efad01f084ae86f89667a23eeba5363']" var="payload" mode="json">
+    </get>
+    <comment>
+      <![CDATA[${payload}]]>
+    </comment>
+    <comment>
+      <![CDATA[The error message returned with this failed GET call, reveals the Auth type is incorrect. With this simple information someone can get one step closer to cracking your API.]]>
+    </comment>

@@ -1,0 +1,26 @@
+    <comment>
+      <![CDATA[user1 only has access to GET the API not PUT the API]]>
+    </comment>
+    <get url="https://m3-security.load2.apifortress.com/api/access" params="['user':'user1','password':'ABC']" var="payload" mode="json">
+    </get>
+    <comment>
+      <![CDATA[${payload} - user1 can access API via GET]]>
+    </comment>
+    <put url="https://m3-security.load2.apifortress.com/api/access" params="['user':'user1','password':'ABC','price':'$5.99']" var="accessdenied" mode="json">
+    </put>
+    <comment>
+      <![CDATA[${accessdenied} - As you can see user1 has been denied access to PUT the API]]>
+    </comment>
+    <comment>
+      <![CDATA[user2 has access to GET and PUT the API]]>
+    </comment>
+    <get url="https://m3-security.load2.apifortress.com/api/access" params="['user':'user2','password':'!@#']" var="payload2" mode="json">
+    </get>
+    <comment>
+      <![CDATA[${payload2} - user2 can access API via GET]]>
+    </comment>
+    <put url="https://m3-security.load2.apifortress.com/api/access" params="['user':'user2','password':'!@#','price':'$5.99']" var="accessgranted" mode="json">
+    </put>
+    <comment>
+      <![CDATA[${accessgranted} - user2 can access the API via PUT]]>
+    </comment>
