@@ -8,7 +8,7 @@
 <assert-equals expression="payload_response.headers[&apos;Content-Type&apos;]" value="application/json; charset=utf-8" comment="Content-Type is the expected one"/>
 <assert-is expression="payload" type="array" comment="payload is an array"/>
 <comment>
-<![CDATA[iterates on each item in the payload picking up just one in every iteration]]
+<![CDATA[iterates on each item in the payload picking up just one in every iteration]]>
 </comment>
 <each expression="payload.pick(1)" >
       <assert-exists expression="_1.category"  mode="all" comment="category item must exists"/>
